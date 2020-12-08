@@ -5,7 +5,6 @@
 
 [node name="obstacle" type="Node2D"]
 script = ExtResource( 2 )
-animation_length = 1.0
 
 [node name="line0" parent="." instance=ExtResource( 1 )]
 
