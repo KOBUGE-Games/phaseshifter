@@ -5,7 +5,7 @@ export var animation_length = 1.0
 var child_count
 var animation
 
-onready var property_name = ["position", "rotation_degrees", "self_modulate", "visible"]
+onready var property_name = ["position", "rotation_degrees", "self_modulate", "visible", "scale"]
 onready var property_value: Dictionary
 
 func _ready():
@@ -35,4 +35,5 @@ func randomize_properties():
 	property_value = {"position": [Vector2((randi()%2-0.5)*512,(-randi()%4-1)*64), Vector2(0,0)], # slide in randomly
 		"rotation_degrees": [randi()%360, 0], # rotate in randomly
 		"self_modulate": [Color(0,0,0,1), Color(1.5,1.5,1.5,1)], # fade in effect
-		"visible": [true,true]} # make childs visible once animation starts
+		"visible": [true,true], # make childs visible once animation starts
+		"scale": [Vector2(0,0),Vector2(1,1)]} # scale up while appearing

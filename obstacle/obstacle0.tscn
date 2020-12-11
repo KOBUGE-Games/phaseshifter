@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://obstacle/line.tscn" type="PackedScene" id=1]
+[ext_resource path="res://obstacle/obstacle.gd" type="Script" id=2]
+
+[node name="obstacle0" type="Node2D"]
+
+[node name="line_container" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="line0" parent="line_container" instance=ExtResource( 1 )]
+points = PoolVector2Array( 64, 0, 0, 0, -64, 0 )
+
+[node name="line1" parent="line_container" instance=ExtResource( 1 )]
+points = PoolVector2Array( 0, -64, -32, -32, -64, 0 )
+
+[node name="line2" parent="line_container" instance=ExtResource( 1 )]
+points = PoolVector2Array( 64, 0, 32, -32, 0, -64 )

@@ -1,13 +1,8 @@
-[gd_scene load_steps=2 format=2]
-
-[sub_resource type="Curve" id=1]
-_data = [ Vector2( 0, 0.5 ), 0.0, 0.0, 0, 0, Vector2( 0.494506, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.490909 ), 0.0, 0.0, 0, 0 ]
+[gd_scene format=2]
 
 [node name="line" type="Line2D"]
-self_modulate = Color( 1.5, 1.5, 1.5, 1 )
 points = PoolVector2Array( 64, 0, 32, 32, 0, 64 )
-width = 8.0
-width_curve = SubResource( 1 )
+width = 4.0
 default_color = Color( 1.5, 1.5, 1.5, 1 )
 joint_mode = 2
 begin_cap_mode = 2
