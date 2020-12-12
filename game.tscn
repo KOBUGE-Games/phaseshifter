@@ -41,4 +41,5 @@ autoplay = "glow"
 anims/glow = SubResource( 2 )
 
 [node name="world_creator" parent="." instance=ExtResource( 2 )]
-position = Vector2( 192, 448 )
+position = Vector2( 192, 540 )
+difficulty = 80
