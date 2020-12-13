@@ -1,5 +1,6 @@
 extends Node2D
 
+var game_start = true
 var tile_offset = 64 # distance between tiles in pixels
 var vertical_distance = 96
 var horizontal_distance = 1600
@@ -29,28 +30,34 @@ func _ready():
 	pass
 
 func _process(delta):
-	if current_horizontal < horizontal_distance:
+	if game_start:
 		start_level()
+	else:
+		for child in obstacle_container.get_child_count():
+			var current_child = obstacle_container.get_child(child)
+			var current_position = current_child.get_position()
+			current_child.set_position(current_position - delta*Vector2(200,0))
+			if current_position.x < -tile_offset:
+				current_child.get_node("line_container").die()
+		if global.create_new_obstacle:
+			obstacle_switch()
+			create_obstacle()
+			global.create_new_obstacle = false
+	if game_start and current_horizontal >= horizontal_distance:
+		game_start = false
+		current_horizontal -= tile_offset
+		
 	pass
 
 func start_level():
 	if timer.is_stopped():
-		# reset colors for every new element pair
-		current_color = [Color(1,1,1),Color(1,1,1)]
-		color_palette = global.full_color_palette.duplicate()
 		# make first tiles be flat
 		if current_horizontal < 64*10:
 			obstacle_starter()
 		else:
 			obstacle_switch()
 			
-		for x in range(2):
-			var new_obstacle = obstacle.instance()
-			new_obstacle.modulate = current_color[x]
-			new_obstacle.rotation_degrees = -x*180 # set different fade in direction for top / bottom
-			x = (x-0.5) * 2 # make value -1 and 1 to spawn top / bottom
-			new_obstacle.position = Vector2(current_horizontal,x*vertical_distance)
-			obstacle_container.add_child(new_obstacle)
+		create_obstacle()
 		current_horizontal += tile_offset
 		timer.start()
 		
@@ -84,7 +91,19 @@ func obstacle_starter():
 	if neutrals_color_switch:
 		color_switch()
 
+func create_obstacle():
+	for x in range(2):
+		var new_obstacle = obstacle.instance()
+		new_obstacle.modulate = current_color[x]
+		new_obstacle.rotation_degrees = -x*180 # set different fade in direction for top / bottom
+		x = (x-0.5) * 2 # make value -1 and 1 to spawn top / bottom
+		new_obstacle.position = Vector2(current_horizontal,x*vertical_distance)
+		obstacle_container.add_child(new_obstacle)
+
 func color_switch():
+	# reset colors for every new element pair
+	current_color = [Color(1,1,1),Color(1,1,1)]
+	color_palette = global.full_color_palette.duplicate()
 	var color_count = color_amount
 	for x in range(2):
 		var color_index = randi() % color_count # find a random color
